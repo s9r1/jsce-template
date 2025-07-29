@@ -1,0 +1,737 @@
+%%%
+%% v1.0-RC01 [2022/01/31]
+%% v1.0-RC02 [2022/02/22]
+%% v1.1 [2022/10/17]
+\documentclass{jjsce}% jscefinal
+%\documentclass[Proof,noflushend]{jjsce}% !!noflushend
+%\documentclass[Proof,english]{jjsce}% 
+\usepackage{amsmath}
+%\usepackage{amsthm}% newtxtext よりも前に読み込む
+\usepackage[defaultsups]{newtxtext}
+\usepackage[varg]{newtxmath}
+\usepackage{bm}% 数式でボールドイタリックを使いたいとき
+\usepackage[dvipdfmx]{graphicx}
+%\usepackage[dvips]{graphicx}
+\usepackage{xcolor}
+\usepackage[superscript]{cite}
+\usepackage{url}
+\usepackage{endnotes}
+%\usepackage{flushend}
+%\usepackage{balance}% --> 古すぎる output routine が適合しない
+\usepackage[savepos]{zref}% cls 内で Require すると正しい数値を得られない
+%\usepackage[uplatex]{otf}
+
+\def\ClassFile{\texttt{jjsce.cls}}
+
+\aboveEtitlesep5mm
+
+\begin{document}
+\jtitle{土木学会論文集のための\\
+\LaTeXe\ クラスファイル（\ClassFile{}）の使い方}
+%\jsubtitle{}
+\etitle{HOW TO USE \ClassFile\ FOR FORMATTING MANUSCRIPT BY USING \LaTeXe}
+%\esubtitle{}
+\makeatletter
+\if@english
+\makeatother
+\authorlist{%
+ \authorentry{Taro DOBOKU}{jsce}
+ \authorentry{Hanako YOTSUYA}{CO}
+ \authorentry{John SMITH}{jsceE}
+}
+\affiliate[jsce]{Member of JSCE, Professor, Dept.\ of Civil Eng., University of Doboku\\ (Yotsuya 1, Shinjuku-ku, Tokyo 160--0004, Japan)}{doboku@jsce.ac.jp}
+\Caffiliate[CO]{Member of JSCE, Dept. of Civil Eng., Doboku Corporation\\ (13--5, Mitsuya 6, Shinjuku-ku, Tokyo 160--0004, Japan)}{hanako@jsce.co.jp}
+\affiliate[jsceE]{Member of JSCE, Professor, Inst.,  Industrial Science, University of Tokyo\\ (7--22--1 Roppongi, Minato-ku, Tokyo 106--8558. Japan)}{johnsmith@abc-xyz.com}
+\else
+\authorlist{%
+ \authorentry{土木 太郎}{Taro DOBOKU}{jsce}
+ \authorentry{四谷 花子}{Hanako YOTSUYA}{CO}
+ \authorentry{John SMITH}{John SMITH}{jsceE}
+}
+\affiliate[jsce]{正会員　土木大学教授　工学部土木工学科（\jipcode{160--0004} 東京都新宿区四谷一丁目無番地）}{doboku@jsce.ac.jp}
+\Caffiliate[CO]{正会員　土木建設株式会社　技術開発部（\jipcode{160--0004}東京都新宿区三矢六丁目13--5）}{hanako@jsce.co.jp}
+\affiliate[jsceE]{Member of JSCE, JSCE Corp.}{johnsmith@jsce.com}
+\fi
+%\Jbreakauthorline{4}
+%\breakauthorline{4}
+\received{2022}{1}{31}
+\accepted{2022}{4}{28}
+
+\begin{abstract}
+「土木学会論文集」への投稿原稿を，
+日本語 (u)p\LaTeXe\ を用いて作成する際に
+利用するクラスファイル（\ClassFile{}）の使い方を説明したものです．
+\texttt{template-j.tex}（本ドキュメントとともに配布）に沿って
+記述すれば，「土木学会論文集」の体裁を満たします．
+\end{abstract}
+\makeatletter
+\if@english\else
+\makeatother
+\begin{Eabstract}
+The Japan Society of Civil Engineers 
+provides a (u)p\LaTeXe\ class file, named \ClassFile, 
+for the Journal of Japan Society of Civil Engineers. 
+This document describes how to use the class file. 
+\end{Eabstract}
+\fi
+\begin{keyword}
+class file, p\LaTeXe, up\LaTeXe, times, 10pt
+\end{keyword}
+\maketitle
+
+\section{はじめに}
+
+このドキュメントは，
+「土木学会論文集」（以下，「論文集」と略します）への投稿原稿を，
+日本語 (u)p\LaTeXe\ を用いて作成する際に
+利用するクラスファイル（\ClassFile{}）の使い方を説明したものです．
+投稿原稿の執筆にあたっては，
+『土木学会論文集和文原稿作成例』
+（土木学会論文集新フォーマット.pdf）を参照してください．
+
+本ドキュメントは \LaTeXe\ の基本的な使い方について説明したものではありません．
+\LaTeXe\ の使い方に関しては，参考文献の解説書\cite{Okumura}や，
+\TeX\ Wiki（https://texwiki.texjp.org/）を参照することをお勧めします．
+
+\section{テンプレートならびに記述方法}%\label{template}
+
+\texttt{template-j.tex}（本ドキュメントとともに配布）に沿って
+記述すれば，「論文集」の体裁を満たします．
+
+\subsection{プリアンブルの記述}
+
+\begin{verbatim}
+\documentclass{jjsce}
+\usepackage{amsmath}
+%\usepackage{amsthm}
+\usepackage[defaultsups]{newtxtext}
+\usepackage[varg]{newtxmath}
+\usepackage{bm}
+\usepackage[dvipdfmx]{graphicx}
+%\usepackage[dvips]{graphicx}
+%\usepackage{xcolor}
+\usepackage[superscript]{cite}
+\usepackage{url}
+\usepackage{endnotes}
+\usepackage[savepos]{zref}
+\end{verbatim}
+
+\begin{itemize}
+\item
+今日では \texttt{amsmath} パッケージの利用が一般的です．
+\item 
+定理型環境を記述する \texttt{amsthm} パッケージは必須ではありません．
+利用するときは
+\texttt{newtxtext} パッケージよりも前に読み込む必要があります
+（後ろで読み込むと，そのままではエラーが生じます）．
+\item 
+「論文集」では欧文フォントに
+\texttt{newtxtext}（Times 系）を使用します．
+\item
+数式でボールドイタリックを使いたいときは，
+\texttt{bm} パッケージの利用が便利です．
+このパッケージは \texttt{newtxtext} の後で読み込みます．
+\item
+\verb/graphicx/ のオプション \texttt{dvipdfmx} は，
+ドライバとして \texttt{dvipdfmx} を使うときに指定します．
+\texttt{dvips} などの他のドライバを使うときは適宜変更してください．
+なお，Lua\LaTeX\ を使用する場合は，
+オプション \texttt{dvipdfmx} は必要ありません．
+\item
+\texttt{xcolor} もしくは \texttt{color} パッケージは必須ではありません．
+\item
+\texttt{cite} パッケージを利用する場合は，
+\begin{verbatim}
+\usepackage[superscript]{cite}
+\end{verbatim}
+としてください．
+
+%%文献参照番号を上付きにせずに
+%%「文献\Cite{Okumura}によると…」というような記述をしたい場合，
+%%\verb/\Cite/ を使うことができます（デフォルトでは定義されていません）．
+
+\item
+\texttt{url} パッケージは著者のメールアドレスの記述のために読み込みます．
+\item 
+\texttt{endnotes} パッケージは脚注（後注）を使うときに指定します
+（\ref{sec:endnotes}節，\pageref{sec:endnotes}頁参照）%
+\footnote{脚注はこのような形でREFERENCESの前に置かれます．}．
+\item 
+\texttt{zref} パッケージは必須です．
+最終ページの英文タイトル・英文著者名・要旨
+（以下，英文タイトル部と略します）を
+表示するために利用します（\ref{sec:zref}節，\pageref{sec:zref}頁参照）．
+\end{itemize}
+
+\subsection{本文の記述}
+
+最初に和文原稿について説明します．
+英文論文は\ref{sec:english}節（\pageref{sec:english}頁）で説明します．
+
+\begin{verbatim}
+\begin{document}
+\jtitle{}
+%\jsubtitle{}
+\etitle{}
+%\esubtitle{}
+\authorlist{%
+ \authorentry{土木 太郎}{Taro DOBOKU}{jsce}
+ \authorentry{四谷 花子}{Hanako YOTSUYA}{CO}
+}
+\affiliate[jsce]{会員種別　所属
+（\jipcode{160--0004}住所）}{メールアドレス}
+\Caffiliate[CO]{会員種別　所属
+（\jipcode{160--0004}住所）}{メールアドレス}
+%\Jbreakauthorline{4}
+%\breakauthorline{4}
+\received{2022}{1}{31}
+\accepted{2022}{4}{28}
+\begin{abstract}
+和文要旨
+\end{abstract}
+\begin{Eabstract}
+英文要旨
+\end{Eabstract}
+\begin{keyword}
+キーワード
+\end{keyword}
+\maketitle
+\section{見出し}
+...
+\Acknowledgment % 謝辞：
+...
+\appendix
+\section{付録の見出し}
+...
+\begin{thebibliography}{9}
+\bibitem{1}
+...
+\end{thebibliography}
+\end{document}
+\end{verbatim}
+
+\begin{itemize}
+\item 
+\verb/\jtitle/ には和文タイトルを記述します．
+任意の場所で改行したいときは，
+\verb/\\/ か \verb/\break/ を使ってください．
+必要に応じて，副題を \verb/\jsubtitle/ コマンドに記述できます．
+\item 
+\verb/\etitle/ には英文タイトルを記述します．
+任意の場所で改行したいときは，\verb/\\/  か \verb/\break/ を使ってください．
+必要に応じて，副題を \verb/\esubtitle/ コマンドに記述できます．
+このコマンドは，最終ページの英文タイトル部の表示に使われます
+（\ref{sec:zref}節，\pageref{sec:zref}頁参照）．
+\item 
+著者名は，以下のように記述します．
+\begin{verbatim*}
+\authorlist{%
+\authorentry{姓 名}{Mei SEI}{ラベル}
+}
+\end{verbatim*}
+
+\begin{itemize}
+\item 
+著者のリストを \verb/\authorentry/ に記述し，
+リスト全体を \verb/\authorlist/ の引数にします．
+\verb/\authorentry/ には何人でも記述できます．
+\item
+第1引数の和文著者名の
+姓と名の間には{\bfseries 必ず ``半角'' のスペース}を挿入します
+（スペースを挿入し忘れた場合にはワーニングが出力されます）．
+\item
+第2引数には，著者名のローマ字読みを記述します．
+姓名の ``姓'' はすべて大文字で記述します．
+
+外国人の場合は，第1引数と第2引数は同じです．
+
+\item
+第3引数には，所属のラベルを記述します
+（後述の \verb/\affiliate/ の第1引数に対応します）．
+ラベルの前後にスペースを挿入しないでください．
+\verb*/{jsce}/ と \verb*/{ jsce}/ は異なる所属と判断します．
+%%なお，複数の所属がある場合は，
+%%カンマで区切ってラベルを複数記述することもできます．
+\item 
+著者が多数のとき，任意の位置で改行を行いたいとき，
+和名およびローマ字名の場合にそれぞれ，
+\verb/\Jbreakauthorline/，
+\verb/\breakauthorline/ コマンドを使用します．
+
+例えば，
+\verb/\Jbreakauthorline{4}/ とすれば4人目の著者の後ろで改行できます．
+\verb/\breakauthorline{4}/ も同様です．
+カンマで区切って複数の数字を指定できます．
+\end{itemize}
+
+\item 
+著者の所属・住所・メールアドレスは \verb/\affiliate/ に記述します．
+\begin{verbatim}
+\affiliate[ラベル]{会員種別　和文所属（住所）}{メールアドレス}
+\end{verbatim}
+例えば
+\begin{verbatim}
+\affiliate[jsce]{会員種別　所属
+（\jipcode{160--0004}住所）}{メールアドレス}
+\end{verbatim}
+などと記述します．
+Corresponding Author の場合は，\verb/\Caffiliate/ にします．
+単独著者の場合は \verb/\Caffiliate/ を使っても，
+メールアドレスの後ろに (Corresponding Author) と出力されません．
+
+第1引数には，\verb/\authorentry/ の第3引数で記述したラベルを記述します．
+この場合も，ラベルの前後に不要なスペースを挿入しないでください．
+第2引数には，会員種別・和文所属・住所を記述します．
+所属や住所が長い場合，例えば，所属と住所の間を \verb/\\/ で改行できます．
+第3引数には，メールアドレスをそのまま
+（例えば \verb/_/ を \verb/\_/ としない）記述します．
+この第3引数のメールアドレスを空にすると，メールアドレスは表示されません．
+
+このコマンドは \verb/\authorentry/ で記述したラベルの出現順に記述します．
+
+\verb/\jipcode/ は ``〒'' が出力されます．
+
+\item 
+\verb/\received/，\verb/\accepted/ は，
+受付番号が通知された日付と採択が通知された日付を
+REFERENCES の下に出力するためのコマンドです．
+3つの引数に前から順に，西暦年，月，日のアラビア数字を記述します．
+不明の場合は空にするか，コメントアウトします．
+\item
+\texttt{abstract} 環境には，和文要旨を記述します．
+「要旨の長さは350字以内」と指定されています．
+\item
+\texttt{Eabstract} 環境には，英文要旨を記述します．
+これは，最終ページの英文タイトル部の表示に使われます
+（\ref{sec:zref}節，\pageref{sec:zref}頁参照）．
+「The length should be 300 words or less.」と指定されています．
+
+\item
+\texttt{keyword} 環境には，英文キーワードを記述します．
+「キーワードは5つ程度」と指定されています．
+\item 
+謝辞を記述したい場合は，
+\verb/\Acknowledgement/ コマンドを使います．
+\item 
+付録を記述する場合は，まず \verb/\appendix/ を宣言し，
+\verb/\section/ などの見出しを記述します．
+章が一つの場合は，\verb/\section*/ とすることもできます．
+\item 
+REFERENCES（参考文献）については
+\ref{sec:refs}節（\pageref{sec:refs}頁）を参照してください．
+\end{itemize}
+
+\subsection{英文のテンプレート}
+\label{sec:english}
+
+\begin{verbatim}
+\documentclass[english]{jjsce}
+\usepackage{amsmath}
+%\usepackage{amsthm}
+\usepackage[defaultsups]{newtxtext}
+\usepackage[varg]{newtxmath}
+\usepackage{bm}
+\usepackage[dvipdfmx]{graphicx}
+%\usepackage[dvips]{graphicx}
+%\usepackage{xcolor}
+\usepackage[superscript,nomove]{cite}
+\usepackage{url}
+\usepackage{endnotes}
+\usepackage[savepos]{zref}
+
+\title{}
+%\subtitle{}
+\authorlist{%
+ \authorentry{Taro DOBOKU}{jsce}
+ \Cauthorentry{Hanako YOTSUYA}{CO}
+}
+\affiliate[jsce]{membership, 
+ affiliation (address)}{email address}
+%\breakauthorline{4}
+\received{2022}{1}{31}
+\accepted{2022}{4}{28}
+\begin{abstract}
+英文要旨
+\end{abstract}
+\begin{keyword}
+キーワード
+\end{keyword}
+\maketitle
+...
+\end{verbatim}
+
+和文原稿と異なる部分を説明します．
+
+\begin{itemize}
+\item 
+\verb/\documentclass/ のオプションに \texttt{english} を指定します．
+\item
+\texttt{cite} パッケージを利用する場合は，
+\begin{verbatim}
+\usepackage[superscript,nomove]{cite}
+\end{verbatim}
+としてください．
+\item 
+\verb/\title/ に英文タイトルを記述します．
+任意の場所で改行したいときは，
+\verb/\\/ か \verb/\break/ を使ってください．
+必要に応じて，副題を \verb/\subtitle/ コマンドに記述できます．
+\item 
+著者名の記述は引数が2つになります．
+\end{itemize}
+
+\subsection{文献参照について（\texttt{cite}パッケージの利用）}
+
+\texttt{cite}パッケージを利用する場合，\verb/\cite{a,b,c,e}/ などと
+記述すると，文献番号は ``$^{1\mbox{\scriptsize --}3,5)}$'' のように出力され，
+番号が続くと ``--'' で圧縮されます．
+また，「文献\verb/\citen{a}/」（\verb/\Cite/を使うこともできます）と
+記述すると，``文献1)'' と上付き添字ではなく本文と同じサイズで出力されます．
+詳しくは，\texttt{cite}パッケージのドキュメントを参照してください．
+
+\subsection{脚注（後注）について}
+\label{sec:endnotes}
+
+脚注は，
+通常の \verb/\footnote/ コマンドを使いますが，
+文末にまとめて出力されます．
+脚注を記述する場合は，
+必ず \texttt{endnotes} パッケージを読み込んでください．
+
+脚注はそのページの下部には出力されず，
+文末の謝辞・付録などの後，REFERENCES（参考文献）の直前に出力されます．
+脚注を使わない場合は，このパッケージを読み込む必要はありません．
+
+\texttt{endnotes} パッケージを読み込み，\verb/\footnote/ コマンドを使用すると
+REFERENCES の前に NOTES が現れますが，その後，
+\verb/\footnote/ を削除することがあっても，そのままでは NOTES は消えません．
+NOTES を消すためには，\verb/\usepackage{endnotes}/ をコメントアウトするか，
+または，拡張子 \texttt{ent} のファイルを削除する必要があります．
+
+\subsection{数式について}
+
+別行数式はセンタリングされ，数式番号は右端に出力されます．
+\begin{align}
+ &G=\sum_{n=0}^{\infty} b_{n} \left(t\right)\\
+ &F=\int_{\Gamma} \sin z\mathrm{d}z
+\end{align}
+
+\subsection{図表について}
+
+『土木学会論文集和文原稿作成例』には，
+図表は原稿末尾にまとめたりせず，
+「それらを最初に引用する文章と同じページに置くことを原則とします」
+としています．
+
+\begin{verbatim}
+\begin{figure}[htb]
+\centering
+\includegraphics{file.pdf}
+\caption{}
+\end{figure}
+\end{verbatim}
+
+\begin{figure}[htb]
+\centering
+\textcolor{black!20}{\rule{50mm}{30mm}}
+\caption{和文キャプションの例}
+%\vspace{-10mm}
+\end{figure}
+
+表のキャプションは以下のように表組みの上に記述します．
+\begin{verbatim}
+\begin{table}[htb]
+\caption{}
+\centering
+\begin{tabular}{ll}
+\hline
+.... \\
+\hline
+\end{tabular}
+\end{table}
+\end{verbatim}
+
+\texttt{wrapfigure} パッケージや 
+\texttt{emathMw} パッケージの \texttt{mawarikomi} 環境などの利用は
+『土木学会論文集和文原稿作成例』では禁止されています．
+
+\subsection{REFERENCES（参考文献）について}
+\label{sec:refs}
+
+文献用スタイルは，従前から利用されている \texttt{jsce.bst} を
+利用してください．
+
+\setbox0\hbox{\verb/\flushbottom/}
+\subsection{\box0 について}
+
+\LaTeX\ では二段組のときには \verb/\flushbottom/，
+つまり，左右の段の下を揃えるという仕様になっています．
+このため，図表や数式などの上下に比較的大きなスペースが
+生じることがあります．このような場合は，
+適宜 \verb/\newpage/ を使ってください．
+
+\subsection{最終ページの英文タイトル部について}
+\label{sec:zref}
+
+英文タイトル・著者名・英文要旨は，最終ページで本文を並行止めした後に
+（左段と右段を揃える），その下部に出力されます．
+このため，当クラスファイルは \texttt{zref} パッケージと
+\texttt{flushend} パッケージ（クラスファイル内部で読み込む）を
+利用しています．
+
+\texttt{flushend} パッケージは可能な限り，
+左段と右段を揃えようとしますが，必ずしもきれいに揃うとは限りません
+（見出しや図表がある場合）．
+左段が右段よりかなり長い場合，
+\begin{verbatim}
+\aboveEtitlesep10mm
+\end{verbatim}
+などとして，英文タイトル部分を下げることができます．
+
+しかし，図表が最終ページに集中したり，
+最終ページに2，3行本文がはみ出すようなケースなどでは
+二段組の左右の高さを自動的に揃えることは，
+\LaTeX\ には極めて難しいことで，
+\texttt{flushend} パッケージを使っても，うまくいかないことがあります．
+また，まれにですが右段の途中に不用意な縦方向の空きが生じることもあります．
+
+このような不具合が生じる場合は，以下のような方法で
+手動で制御する必要があります．
+
+\begin{itemize}
+\item
+ドキュメントクラスのオプションに \texttt{noflushend} を指定します．
+\begin{verbatim}
+\documentclass[noflushend]{jjsce}
+\end{verbatim}
+
+%%\texttt{nidanfloat}??
+
+\item
+最終ページのテキストの左段の部分で，
+以下のようにして英文タイトル部分を出力します．
+必要に応じて，\verb/\makeEtitle/ の上下を \verb/\vspace/ や
+\verb/\aboveEtitlesep/ を使って調節します．
+\begin{verbatim}
+\begin{figure}[b]
+%\aboveEtitlesep-15mm
+\makeEtitle
+%\vspace{90mm}
+\end{figure}
+\end{verbatim}
+
+%\end{itemize}
+\end{itemize}
+
+\subsection{最終原稿でページ番号を削除する}
+
+最終原稿でページ番号を取りたい場合は，以下のように
+ドキュメントクラスのオプションに \texttt{jscefinal} を記述します．
+\begin{verbatim}
+\documentclass[jscefinal]{jjsce}
+\end{verbatim}
+
+\subsection{hyperrefについて}
+\label{sec:hyperref}
+
+\begin{itemize}
+\item
+hyperrefを使用するときは，PXjahyperパッケージを併用することを勧めます．
+\begin{verbatim}
+\usepackage[dvipdfmx]{hyperref}
+\usepackage{pxjahyper}
+\end{verbatim}
+
+このパッケージが使えないときは，
+\texttt{hyperref}オプションに\texttt{setpagesize=false}を
+指定することを勧めます（はみ出しを避けるため改行しています）．
+\begin{verbatim}
+\usepackage[dvipdfmx,setpagesize=false]
+ {hyperref}
+\end{verbatim}
+
+\item
+Lua\LaTeX\ を利用される場合は，
+以下のように指定するのが安全です．
+\begin{verbatim}
+\usepackage[luatex,pdfencoding=auto]
+ {hyperref}
+\end{verbatim}
+
+\item
+他のパッケージとの併用で生じる不具合などについては，
+以下のURLを参照するなどしてください．
+\begin{small}
+\begin{verbatim}
+https://texwiki.texjp.org/?hyperref#v71488f4
+\end{verbatim}
+\end{small}
+\end{itemize}
+
+\section{テクニカルノート}
+
+投稿料との関係でページ数を縮めたいというケースが出てくると思われます．
+以下5つの方法が簡単です．
+以下では『土木学会論文集和文原稿作成例』の指示に外れない範囲での
+対策を説明します．
+\begin{enumerate}
+\item
+最初のページのタイトルから Key Words までを縮める：
+
+\begin{verbatim}
+\abovetitlesep-1mm
+  → タイトルの上を1mm縮める
+\aboveauthorsep-1.5mm
+  → 著者の上を1.5mm縮める
+\belowauthorsep-.5mm
+  → 著者の下を.5mm縮める
+\belowaffiliatesep-1.5mm
+  → 所属の下を1.5mm縮める
+\end{verbatim}
+これらのパラメータは1mmとか，最大でも2mm程度に収めてください．
+
+\item
+最終ページの英文タイトルから英文要旨までを縮める：
+\begin{verbatim}
+\aboveEtitlesep-1mm
+  → タイトルの上を1mm縮める
+\aboveEauthorsep-1mm
+  → 著者の上を1mm縮める
+\belowEauthorsep-1mm
+  → 著者の下を1mm縮める
+\end{verbatim}
+
+\item
+別行数式の上下の空きを縮める：
+
+ドキュメントクラスのオプションに，以下のように \texttt{smallmathskip} または
+\texttt{tinymathskip} を記述します．
+\begin{verbatim}
+\documentclass[smallmathskip]{jjsce}
+または
+\documentclass[tinymathskip]{jjsce}
+\end{verbatim}
+後者の方がより大きく空きが縮みます．
+
+これらのオプションは実際には，以下のコマンド
+\begin{verbatim}
+\SmallMathSkip
+\TinyMathSkip
+\end{verbatim}
+をそれぞれ実行します．これらのコマンドを，
+上のクラスオプションで指定せずに，
+テキスト中で部分的に使うこともできます．
+
+これらのコマンドをテキスト中で使う場合に
+元のパラメータに戻すには以下のようにします．
+\begin{verbatim}
+\NormalMathSkip
+\end{verbatim}
+数式が多い場合は，この方法が一番効果があります．
+
+\item
+図表と本文との間を縮める：
+
+図表と本文との空きは以下のパラメータで制御されています
+（はみ出しを避けるため改行しています）．
+\begin{verbatim}
+\floatsep 1\Cvs \@plus 2\p@ \@minus 2\p@
+  → 図表と図表が連続する空き
+\dblfloatsep 1\Cvs
+ \@plus 2\p@ \@minus 2\p@
+  → 二段抜きの図表と図表が連続する空き
+\textfloatsep 1.5\Cvs
+ \@plus 2\p@ \@minus 4\p@
+  → 図表とテキストとの空き
+\dbltextfloatsep 1.5\Cvs
+ \@plus 2\p@ \@minus 4\p@
+  → 二段抜きの図表とテキストとの空き
+\intextsep 1.5\Cvs
+ \@plus 2\p@ \@minus 2\p@
+  → 本文中の図表とテキストとの空き
+\end{verbatim}
+なお，\verb/\Cvs/ は行間のことで．
+\verb/\normalsize/ のときの \verb/\baselineskip/ と同じです．
+
+したがって，これらのパラメータを少し小さくします．例えば，
+\begin{verbatim}
+\makeatletter
+\floatsep .5\Cvs
+ \@plus 2\p@ \@minus 2\p@
+\dblfloatsep .5\Cvs
+ \@plus 2\p@ \@minus 2\p@
+\textfloatsep 1\Cvs
+ \@plus 2\p@ \@minus 4\p@
+\dbltextfloatsep 1\Cvs
+ \@plus 2\p@ \@minus 4\p@
+\intextsep 1\Cvs
+ \@plus 2\p@ \@minus 2\p@
+\makeatother
+\end{verbatim}
+
+図表と図表が本文中で連続するとき
+（フロート環境のオプション \texttt{[h]} の図表が連続する），
+大きくスペースが開くことがあります．
+その場合は{\bfseries フロート環境の中で} \verb/\vspace{-10mm}/ などとして
+余白を縮めてください．
+
+\item
+\verb/\section/ の上を縮める：
+
+\verb/\section/ の直前で \verb/\vspace{-1\Cvs}/ などとする．
+\end{enumerate}
+
+\makeatletter
+\if@noflushend
+\makeatother
+\begin{figure}[b]
+\aboveEtitlesep-15mm
+\makeEtitle
+\vspace{90mm}
+\end{figure}
+\fi
+
+\section{クラスファイルから削除したコマンド}
+%\label{sec:app}
+
+このクラスファイルは「土木学会論文集」に特化したものです．
+目次や索引など使うことのないコマンドは削除しています．
+
+%\Acknowledgement % 謝辞
+
+%\appendix
+
+\begin{thebibliography}{9}% 文献が10以上のとき99，10未満のとき9
+\bibitem{Okumura}
+奥村晴彦，黒木裕介：
+［改訂第8版］\LaTeXe{} 美文書作成入門，
+技術評論社，2020．
+
+\bibitem{Knuth}
+D.E.クヌース：
+\TeX{} ブック，アスキー出版局，1989．
+
+\bibitem{latex}
+レスリー・ランポート：
+文書処理システム\LaTeXe{}，アスキー出版局，1999．
+
+\bibitem{FMi1}
+マイケル・グーセンス，フランク・ミッテルバッハ，アレキサンダー・サマリン：
+The \LaTeX{} コンパニオン，アスキー出版局，1998．
+
+\bibitem{FMi2}
+マイケル・グーセンス，セバスチャン・ラッツ，フランク・ミッテルバッハ：
+\LaTeX{} グラフィックスコンパニオン，アスキー出版局，2000．
+
+\bibitem{PEn}
+ページ・エンタープライゼス：
+\LaTeXe\ マクロ \& クラスプログラミング基礎解説，
+技術評論社，2002．
+
+\bibitem{Yoshinaga}
+吉永徹美：
+\LaTeXe\ マクロ \& クラスプログラミング実践解説，
+技術評論社，2003．
+\end{thebibliography}
+
+\end{document}

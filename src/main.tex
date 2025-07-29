@@ -1,0 +1,64 @@
+\documentclass{jjsce}
+%\documentclass[jscefinal]{jjsce}% 登載可決定後の最終原稿を提出するときはこちら → ページ番号なしになる
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[defaultsups]{newtxtext}
+\usepackage[varg]{newtxmath}
+\usepackage{bm}% 数式でボールドイタリックを使いたいとき
+\usepackage[dvipdfmx]{graphicx}
+%\usepackage{xcolor}
+\usepackage[superscript]{cite}
+\usepackage{url}
+\usepackage{endnotes}
+\usepackage[savepos]{zref}
+% \usepackage[dvipdfmx]{hyperref}
+% \usepackage{pxjahyper}
+\aboveEtitlesep20mm% 最終ページの英文タイトル部：本文末の並行止めした後のスペース調整．詳細はreadme.pdf参照．
+
+\usepackage{jjsce-macros}
+
+\usepackage{subfiles}
+
+\graphicspath{{fig}}
+
+\begin{document}
+\jtitle{土木学会論文集和文原稿作成例}
+%\jsubtitle{}
+\etitle{FORMATTING JAPANESE MANUSCRIPT FOR JOURNALS OF JSCE}
+%\esubtitle{}
+\authorlist{%
+  \authorentry{土木 太郎}{Taro DOBOKU}{a}
+  \authorentry{四谷 花子}{Hanako YOTSUYA}{b}
+}
+\Caffiliate[a]{正会員　土木大学教授　工学部土木工学科
+  （\jipcode{160--0004}東京都新宿区四谷一丁目無番地）}{doboku@jsce.ac.jp}
+\affiliate[b]{正会員　土木建設株式会社　技術開発部
+  （\jipcode{160--0004}東京都新宿区三矢六丁目13-5）}{hanako@jsce.co.jp }
+
+%\Jbreakauthorline{4}
+%\breakauthorline{4}
+% \received{2022}{1}{31}% Received Date を記入
+% \accepted{2022}{4}{28}% Accepted Date を記入
+\begin{abstract}
+  要旨の長さは350字以内です．キーワードは5つ程度書いて下さい．
+\end{abstract}
+\begin{Eabstract}
+  The length of English abstract should be 300 words or less.
+\end{Eabstract}
+\begin{keyword}
+  times, italic, 10pt, one blank line below abstract, indent if key words exceed one line
+\end{keyword}
+
+\maketitle
+
+\subfile{sec1}
+% \subfile{sec2}
+
+\Acknowledgment
+「謝辞」は「結論」の後に置いて下さい．
+
+\bibliographystyle{jsce}
+\bibliography{main}
+
+\end{document}

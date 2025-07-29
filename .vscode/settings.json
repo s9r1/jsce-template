@@ -1,0 +1,56 @@
+{
+  "[latex]": {
+    "editor.unicodeHighlight.ambiguousCharacters": false
+  },
+
+  "latex-workshop.formatting.latex": "latexindent",
+  "latex-workshop.formatting.latexindent.args": [
+    "-c",
+    "%WORKSPACE_FOLDER%/.aux/",
+    "%TMPFILE%",
+    "-y=defaultIndent: '%INDENT%'",
+    "-l",
+    "%WORKSPACE_FOLDER%/.latexindent.yaml",
+    "-r"
+  ],
+
+  "latex-workshop.latex.autoBuild.cleanAndRetry.enabled": false,
+  // "latex-workshop.latex.autoClean.run": "onFailed",
+  "latex-workshop.latex.clean.args": [
+    "-outdir=%WORKSPACE_FOLDER%/.aux",
+    "-c",
+    "%TEX%"
+  ],
+  "latex-workshop.latex.outDir": "%WORKSPACE_FOLDER%/out",
+
+  "latex-workshop.latex.rootFile.doNotPrompt": true,
+  "latex-workshop.latex.rootFile.useSubFile": false,
+
+  "latex-workshop.latex.recipe.default": "latexmk",
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "latexmk",
+      "tools": ["latexmk"]
+    }
+  ],
+  "latex-workshop.latex.tools": [
+    {
+      "name": "latexmk",
+      "command": "latexmk",
+      "args": [
+        "-r",
+        "%WORKSPACE_FOLDER%/.latexmkrc",
+        "-e",
+        "$ENV{'TEXINPUTS'}='%WORKSPACE_FOLDER%/style//:' . $ENV{'TEXINPUTS'};",
+        "-e",
+        "$ENV{'BSTINPUTS'}='%WORKSPACE_FOLDER%/style//:' . $ENV{'BSTINPUTS'};",
+        "-auxdir=%WORKSPACE_FOLDER%/.aux",
+        "-outdir=%OUTDIR%",
+        "%DOC%"
+      ]
+    }
+  ],
+
+  // "latex-workshop.synctex.afterBuild.enabled": true,
+  "latex-workshop.view.pdf.internal.synctex.keybinding": "double-click"
+}
