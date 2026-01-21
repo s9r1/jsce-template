@@ -15,19 +15,17 @@ $makeindex  = 'upmendex %O -o %D %S -s jpbase';
 $do_cd      = 1;
 $clean_ext  = "$clean_ext fmt";
 
-{
-  sub mylatex {
-    my ($engine, $base, @args) = @_;
-    my $com = join(' ', @args);
+sub mylatex {
+  my ($engine, $base, @args) = @_;
+  my $com = join(' ', @args);
 
-    my $auxdir = $aux_dir || '.';
-    my $fmt_path = "$auxdir/$base.fmt";
+  my $auxdir = $aux_dir || '.';
+  my $fmt_path = "$auxdir/$base.fmt";
 
-    unless (-e $fmt_path){
-      print "mylatex: making $fmt_path in ini mode... \n";
-      Run_subst("$engine -ini -jobname=\"$base\" -output-directory=\"$auxdir\" \\\&$engine mylatexformat.ltx %S");
-    }
-    print "mylatex: $fmt_path detected, so running normal latex... \n";
-    return Run_subst("$engine -fmt \"$fmt_path\" $com");
+  unless (-e $fmt_path){
+    print "mylatex: making $fmt_path in ini mode... \n";
+    Run_subst("$engine -ini -jobname=\"$base\" -output-directory=\"$auxdir\" \\\&$engine mylatexformat.ltx %S");
   }
+  print "mylatex: $fmt_path detected, so running normal latex... \n";
+  return Run_subst("$engine -fmt \"$fmt_path\" $com");
 }
