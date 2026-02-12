@@ -1942,6 +1942,7 @@
  %% 
  \if@english\else
   \if@noflushend\else
+   \flushcolsend
    \zsaveposy{jsce@lastpage@posy}%
    %% this adds aux \zref@newlabel{jsce@lastpage@posy}{\posy{33744135}}
    %%  --> \Z@R@jsce@lastpage@posy
