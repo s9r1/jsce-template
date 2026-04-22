@@ -1,0 +1,32 @@
+{
+  "Insert subfile template": {
+    "prefix": ["jsce_subfile"],
+    "scope": "latex",
+    "body": [
+      "\\documentclass[main.tex]{subfiles}",
+      "",
+      "\\begin{document}",
+      "",
+      "\\section{${1:節タイトル}}",
+      "",
+      "$0",
+      "",
+      "\\end{document}",
+      "",
+    ],
+    "description": "subfileのテンプレートを挿入"
+  },
+  "Insert figure template": {
+    "prefix": ["jsce_figure"],
+    "scope": "latex",
+    "body": [
+      "\\begin{figure}[htb]",
+      "  \\centering",
+      "  \\includegraphics[width=${1:0.5}\\linewidth]{${2:ファイル.jpeg}}",
+      "  \\caption{${3:キャプション}}",
+      "  \\label{fig:${4:ラベル}}",
+      "\\end{figure}"
+    ],
+    "description": "figureのテンプレートを挿入"
+  }
+}

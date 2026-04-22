@@ -1,5 +1,6 @@
 {
   "[latex]": {
+    "editor.acceptSuggestionOnEnter": "off",
     "editor.formatOnSave": true,
     "editor.unicodeHighlight.ambiguousCharacters": false
   },
