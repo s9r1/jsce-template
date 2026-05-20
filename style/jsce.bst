@@ -635,6 +635,31 @@ FUNCTION {format.incoll.inproc.crossref}
   " \cite{" * crossref * "}" *
 }
 
+% JSCE modification: note is output with period separator and brackets
+FUNCTION {note.output.nonnull}
+{ 's :=
+  add.period$
+  write$
+  newline$
+  "\newblock " s * write$
+  ""
+  mid.sentence 'output.state :=
+}
+
+FUNCTION {output.note}
+{ duplicate$ empty$
+    'pop$
+    'note.output.nonnull
+  if$
+}
+
+FUNCTION {format.note}
+{ note empty$
+    { "" }
+    { "[" note * "]" * }
+  if$
+}
+
 FUNCTION {article}
 { output.bibitem
 %            due to punctuation change ":" of authors-list for JSCE
@@ -652,7 +677,7 @@ FUNCTION {article}
     }
   if$
   new.block
-  note output
+  format.note output.note
   fin.entry
 }
 
@@ -685,7 +710,7 @@ FUNCTION {book}
   format.edition output
   format.date "year" output.check
   new.block
-  note output
+  format.note output.note
   fin.entry
 }
 
@@ -700,7 +725,7 @@ FUNCTION {booklet}
   address output
   format.date output
   new.block
-  note output
+  format.note output.note
   fin.entry
 }
 
@@ -735,7 +760,7 @@ FUNCTION {inbook}
   format.edition output
   format.date "year" output.check
   new.block
-  note output
+  format.note output.note
   fin.entry
 }
 
@@ -762,7 +787,7 @@ FUNCTION {incollection}
     }
   if$
   new.block
-  note output
+  format.note output.note
   fin.entry
 }
 
@@ -797,7 +822,7 @@ FUNCTION {inproceedings}
     }
   if$
   new.block
-  note output
+  format.note output.note
   fin.entry
 }
 
@@ -834,7 +859,7 @@ FUNCTION {manual}
   format.edition output
   format.date output
   new.block
-  note output
+  format.note output.note
   fin.entry
 }
 
@@ -850,7 +875,7 @@ FUNCTION {mastersthesis}
   address output
   format.date "year" output.check
   new.block
-  note output
+  format.note output.note
   fin.entry
 }
 
@@ -864,7 +889,7 @@ FUNCTION {misc}
   howpublished output
   format.date output
   new.block
-  note output
+  format.note output.note
   fin.entry
   empty.misc.check
 }
@@ -881,7 +906,7 @@ FUNCTION {phdthesis}
   address output
   format.date "year" output.check
   new.block
-  note output
+  format.note output.note
   fin.entry
 }
 
@@ -917,7 +942,7 @@ FUNCTION {proceedings}
     }
   if$
   new.block
-  note output
+  format.note output.note
   fin.entry
 }
 
@@ -933,7 +958,7 @@ FUNCTION {techreport}
   address output
   format.date "year" output.check
   new.block
-  note output
+  format.note output.note
   fin.entry
 }
 
