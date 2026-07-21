@@ -524,8 +524,8 @@ FUNCTION {format.in.ed.booktitle}
 
 FUNCTION {empty.misc.check}
 { author empty$ title empty$ howpublished empty$
-  month empty$ year empty$ note empty$
-  and and and and and
+  journal empty$ month empty$ year empty$ note empty$
+  and and and and and and
     { "all relevant fields are empty in " cite$ * warning$ }
     'skip$
   if$
@@ -657,6 +657,13 @@ FUNCTION {format.note}
 { note empty$
     { "" }
     { "[" note * "]" * }
+  if$
+}
+
+FUNCTION {format.misc.published}
+{ howpublished empty$
+    { journal }
+    { howpublished }
   if$
 }
 
@@ -883,10 +890,10 @@ FUNCTION {misc}
 { output.bibitem
 %            due to punctuation change ":" of authors-list for JSCE
   format.authors authors.output
-  title howpublished new.block.checkb
+  title format.misc.published new.block.checkb
   format.title output
-  howpublished new.block.checka
-  howpublished output
+  format.misc.published new.block.checka
+  format.misc.published output
   format.date output
   new.block
   format.note output.note
