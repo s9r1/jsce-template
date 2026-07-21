@@ -1,4 +1,3 @@
-%%%
 %%% このクラスファイルの著作権は土木学会が有します．
 %%% このクラスファイルを土木学会論文集の原稿作成以外の目的で使用することを禁止します．
 %%% また，無断での複製、改変、転載、再配布及び転送等の行為を禁止します
@@ -6,7 +5,7 @@
 %%% LaTeXのクラスファイル作成に関するお問い合わせは（株）ウルス（teppei@uls.co.jp）にお願いします．
 %%% jjsce.cls for (u)pLaTeX2e+LuaTeX
 %%   for the Journal of the Japan Society of Civil Engineers
-%%     by Motoaki Sato (ULS and Company), 2022
+%%     by Motoaki Sato (ULS and Company), 2022-2026
 %%     E-mail: teppei@uls.co.jp, http://www.uls.co.jp/
 \ifx\directlua\@undefined
  \NeedsTeXFormat{pLaTeX2e}
@@ -18,7 +17,11 @@
 %% Keywords を Key Words に変更
 %%[2022/10/17 v1.1 for 土木学会論文集]
 %% \refname と \notesname をボールドに修正
-  [2022/11/09 v1.2 for 土木学会論文集]
+%%[2022/11/09 v1.2 for 土木学会論文集]
+%% if@english のときに endnote の体裁を *1) から Note\,1) に変更
+%%[2022/12/14 v1.3 for 土木学会論文集]
+%% Etitle 出力部分を修正 / \enlargeRcolheight 定義
+  [2026/03/02 v1.4 for 土木学会論文集]
 
 \def\jsce@warning{\ClassWarningNoLine{jjsce}}
 \def\jsceline@warning{\ClassWarning{jjsce}}
@@ -1666,6 +1669,7 @@
 \inhibitxspcode`〒=2
 \inhibitxspcode`！=1
 \else
+%\input ltj-kinsoku.tex % lua の禁則 from texlive 2021
 \ltjsetparameter{prebreakpenalty={`，,10000}}
 \ltjsetparameter{prebreakpenalty={`．,10000}}
 \ltjsetparameter{prebreakpenalty={`、,10000}}
@@ -1848,9 +1852,9 @@
   \if@english
    \def\@makeenmark{%
     \smash{\kern\z@\hbox{\@textsuperscript{\normalfont %(
-     $\ast$\@theenmark)}}\kern\z@}}%
+     Note\,\@theenmark)}}\kern\z@}}%
    \def\enoteformat{% \rightskip\z@\leftskip\z@ %(
-    \@hangfrom{$\ast$\@theenmark)\hskip9\p@}%
+    \@hangfrom{Note\,\@theenmark)\hskip9\p@}%
    }%
    \def\enotesize{\small\baselineskip3.75mm}%
   \else
@@ -1916,16 +1920,24 @@
  %%%\RequirePackage[savepos]{zref}% -> Require すると正しい数値を得られない
  %% flushend
  \if@noflushend\else
-  \RequirePackage{flushend}% modern [ancient]
-  %\showcolsendrule %??
+  \RequirePackage{flushend}%[nolspread,lshrink] [nocheckfloat,nocheckfootnote]
+  %\RequirePackage{flushend-2021}%
+  %\def\flushend@@column@badness{51}% 101
+  %\showcolsendrule
  \fi
 }
 
-%\newdimen\jsceenlargetextheight
+\newdimen\enlargeRcolheight \enlargeRcolheight\z@
 \newdimen\@spaceforjsceEtitle
 
 \newif\if@jsce@footnote@ne
 \@jsce@footnote@nefalse
+
+\newif\if@jsce@Etitle@newpage
+\@jsce@Etitle@newpagefalse
+
+\newif\if@jsce@use@hook \@jsce@use@hooktrue
+\@ifundefined{AddToHook}{\@jsce@use@hookfalse}{}% Hook after texlive 2021
 
 \AtEndDocument{%
  %% received and accepted
@@ -1942,7 +1954,30 @@
  %% 
  \if@english\else
   \if@noflushend\else
-   \flushcolsend
+   \let\latex@org@warning@no@line\@latex@warning@no@line
+   \def\@latex@warning@no@line#1{% v1.4
+     \begingroup
+      \edef\reserved@a{\detokenize{#1}}%
+      \edef\reserved@b{\detokenize{Label(s) may have changed. Rerun to get cross-references right}}%
+     \ifx\reserved@a\reserved@b
+      % 警告抑止（flushend のbugに対応）
+     \else
+       \latex@org@warning@no@line{#1}%
+     \fi
+     \endgroup
+   }%
+   \vspace{\enlargeRcolheight}% v1.4
+   \flushcolsend % v1.4
+   %\typeout{!!! pagegoal=\the\pagegoal}%
+   %\typeout{!!! pagetotal=\the\pagetotal}%
+   % flushend は出力ルーチンを動的に書き換えるが
+   % \pagetotal で得られる数値は \twocolumn で組んだ時の右段の高さを示すので
+   % 期待する \pagetotal の値を得ることができない
+   % 右段の高さが左段より大きい（図表および見出しが右段に集中するような場合）
+   %   Etitle 部分が本文と重なるが解決不能（左段の高さを測ることはできない）
+   % \aboveEtitlesep か \enlargeRcolheight で制御するしか方法はない
+   % または noflushend オプションを使って \makeEtitle を手動で表示するか
+   %%%
    \zsaveposy{jsce@lastpage@posy}%
    %% this adds aux \zref@newlabel{jsce@lastpage@posy}{\posy{33744135}}
    %%  --> \Z@R@jsce@lastpage@posy
@@ -1951,20 +1986,23 @@
    \newdimen\@dimY
    \setbox0\hbox{\expandafter\hskip\zposy{jsce@lastpage@posy}sp}%
    \@dimY=\wd0
-   %\typeout{!!! jsce@lastpage@posy=\the\@dimY}%
+   %%\typeout{!!! jsce@lastpage@posy=\the\@dimY}%
    \@tempdima=\dimexpr \topmargin+1in\relax
    \@tempdimb=\dimexpr \paperheight-\@tempdima-\textheight\relax
    %% 右段下から頁下までの距離から\jsce@Etitle@height を引く
    \@spaceforjsceEtitle=\dimexpr \zposy{jsce@lastpage@posy}sp
     -\@tempdimb -\jsce@Etitle@height\relax
+   %%\typeout{!!! textheight=\the\textheight}% 713.94226pt
    %%\typeout{!!! @tempdimb=\the\@tempdimb}%
    %%\typeout{!!! jsce@lastpage@posy=\zposy{jsce@lastpage@posy}}%
    %%\typeout{!!! Etitleの高さ=\the\jsce@Etitle@height}%
-   %\typeout{!!! @spaceforjsceEtitle=\the\@spaceforjsceEtitle}%
+   %%\typeout{!!!! @dimY=\the\@dimY /  @spaceforjsceEtitle=\space\the\@spaceforjsceEtitle}
    \ifdim \@spaceforjsceEtitle > \z@
-    \ifdim \@dimY > 770\p@
+    %\ifdim \@dimY > 770\p@
+    %\ifdim \@dimY > 603\p@
+    \ifdim \@dimY > \pagegoal % v1.4
      \noindent
-     \hbox to \z@{\hbox to \textwidth{\hss\box\box@jsceEtitle\hss}\hss}\par
+     \hbox to \z@{\hbox to \textwidth{\hss \box\box@jsceEtitle\hss}\hss}\par
     \else
      \atColsEnd{%
       \noindent
@@ -1973,13 +2011,30 @@
      }%
     \fi
    \else
-    \onecolumn
-    \noindent\hfil
-    \box\box@jsceEtitle\par
+    \if@jsce@use@hook
+     \@jsce@Etitle@newpagetrue
+    \else
+     \onecolumn
+     \noindent\hfil
+     \box\box@jsceEtitle\par
+    \fi
    \fi
   \fi
  \fi
 }
+
+\if@jsce@use@hook
+\AddToHook{enddocument/afterlastpage}{%
+ \if@jsce@Etitle@newpage
+  \onecolumn
+  \noindent\hfil
+  \box\box@jsceEtitle\par
+  \stepcounter{page}%
+  \clearpage
+  %%!! \clearpage をコメントアウトすると \box@jsceEtitle は出力されない
+ \fi
+}
+\fi
 
 \pagestyle{footnombre}
 \pagenumbering{arabic}

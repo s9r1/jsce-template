@@ -1,0 +1,167 @@
+%#!PATH=/opt/texlive/2025/bin/universal-darwin:$PATH; ptex2pdf -l -u -ot '--synctex=1 --shell-escape' -od '-p a4' template-e; skim_reload_pdf template-e
+% v1.4 [2026/03/02]
+\documentclass[english]{jjsce}
+%\documentclass[english,jscefinal]{jjsce}
+\usepackage{amsmath}
+%\usepackage{amsthm}
+\usepackage[defaultsups]{newtxtext}
+\usepackage[varg]{newtxmath}
+%\usepackage{bm}
+%%
+\usepackage[dvipdfmx]{graphicx}% (u)pLaTeX + dvipdfmx
+%% When using LuaLaTeX, select the following:
+%\usepackage{graphicx}
+%\usepackage{stfloats}\fnbelowfloat
+%%
+%\usepackage{xcolor}
+\usepackage[superscript]{cite}
+\usepackage{url}
+\usepackage{endnotes}
+\usepackage{enumitem}
+%% If you use the hyperref package, select either of the following
+%\usepackage[dvipdfmx]{hyperref}% (u)pLaTeX + dvipdfmx
+%\usepackage{pxjahyper}% (u)pLaTeX + dvipdfmx
+%\usepackage[luatex,pdfencoding=auto]{hyperref}% LuaLaTeX
+
+\begin{document}
+\title{INSTRUCTIONS FOR MAUSCRIPT FOR\\
+JOURNAL OF JSCE/ AUTHOR GUIDELINES FOR\\
+MANUSCRIPT PREPARATION FOR JSCE}
+%\subtitle{}
+\authorlist{%
+ \authorentry{Taro DOBOKU}{doboku-u}
+ \authorentry{Hanako YOTSUYA}{doboku-co}
+ \authorentry{John SMITH}{u-tokyo}
+}
+\affiliate[doboku-u]{Member of JSCE, Professor, Dept. of Civil Eng., University of Doboku \\
+(Yotsuya 1, Shinjuku-ku, Tokyo 160-0004, Japan)}{doboku@jsce.ac.jp}
+\Caffiliate[doboku-co]{Member of JSCE, Dept. of Civil Eng., Doboku Corporation\\
+(13-5, Mitsuya 6, Shinjuku-ku, Tokyo 160-0004, Japan) }
+{hanako@jsce.co.jp}
+\affiliate[u-tokyo]{Member of JSCE, Professor, Inst., Industrial Science, University of Tokyo\\
+ (7-22-1 Roppongi, Minato-ku, Tokyo 106-8558. Japan)}{}%{smith@jsce.or.jp}
+
+%\breakauthorline{4}
+%\received{2026}{2}{16}% Received Date
+%\accepted{2026}{3}{2}% Accepted Date
+
+\begin{abstract}
+This template is prepared for your preparion of manscript for JSCE journals. It provides instructions:
+page layout, font style, size and others. You may use it to create your own manuscript by replacing the
+relevant text with your own, using ``cut \& paste.'' The Abstract should be justified, leaving a 30 mm margine
+on the left and right sides. Font should be a 10-point Times-New-Roman. The length should be 300 words
+or less.
+\end{abstract}
+\begin{keyword}
+times, italic, 10pt, one blank line below abstract, indent if key words exceed one line 
+\end{keyword}
+\maketitle
+
+\section{Title PAGE}
+
+The first page consists of two parts:
+%\begin{description}
+% \item[(a)] Front matters : single column (title, author(s),
+%affiliation(s), contact address(es), E-mail address(es), abstract, key words)．The e-mail address of the corresponding author is mandatory.
+%E-mail address should be indicated in a separate,
+%independent line.
+% \item[(b)] Main text in double columns.
+%\end{description}
+\begin{enumerate}[label=(\alph*)]
+ \item Front matters : single column (title, author(s),
+affiliation(s), contact address(es), E-mail address(es), abstract, key words)．The e-mail address of the corresponding author is mandatory.
+E-mail address should be indicated in a separate,
+independent line.\\[-20pt]
+ \item Main text in double columns.\\[-20pt]
+\end{enumerate}
+
+The journal name, volume and issue numbers and
+the date of issue should be aligned right in the top
+margin. Page numbers are to be put in the bottom
+margins of the manuscript. Some word processing
+softwares do not allow texts in both single and double
+columns to be put together in one file, and thus, create
+two separate files for the title page.
+
+\subsection{Layout and fonts for the front matters}
+
+Left and right margins for the front matters are
+equally set at 30 mm, The front matters are, thus, to
+be laid-out within the borders narrower than those for
+the main text.
+
+The front matters include the followings:\\
+\hspace*{40pt}(About 10 mm blank space)
+
+\textbf{Title} in Times-New-Roman, 18pt, bold
+
+\hspace*{40pt}(About 15mm blank space)
+
+\textbf{Author(s)} in Times-New-Roman, 12pt.
+
+\hspace*{40pt} (About 5 mm blank space)
+
+\textbf{Affiliation(s)} in Times-New-Roman, 9pt.
+
+\textbf{E-mail address(es)} in Times-New-Roman, 9pt
+
+\hspace*{40pt} (About 10 mm blank space)
+
+\textbf{Abstract} in Times-New-Roman, 10pt, max. 300 words,
+
+\hspace*{40pt} (1 line spacing) and
+
+\textbf{About 5 Key Words} in Times-Italic, 10pt,
+
+\hspace*{40pt} (max. 2 blank lines).
+
+The name(s) and affiliation(s) of the author(s)
+should be numbered in order of appearance as shown
+above. The title \textbf{'\textit{Key Words}'} is bold and italic. 
+
+\subsection{Layout and fonts of the main text}
+
+The text should be placed about 1cm below the key words.
+Left and right margins for the text are equally set at 20 mm.
+The text, in double columns put side by
+side with 6 mm gap in between, must be singlespaced with
+ double spacing between chapters. 
+Use 11pt Times-New-Roman font for the text. 
+
+\subsection{page number}
+
+Page numbers should be center-aligned and should
+appear at the bottom of each page. 
+Since these pieces of information will be notified by the secretariat of
+JSCE before completing the final manuscripts, leave
+the blanks as they are, and number the pages tentatively from 1. 
+
+%\Acknowledgment
+
+%\appendix
+%\section{付録の見出し}
+
+\begin{thebibliography}{9}
+\bibitem{1}
+...
+\end{thebibliography}
+
+\end{document}
+
+\begin{table}[htb]
+\caption{}
+%\label{}
+\centering
+\begin{tabular}{ll}
+\hline
+%
+\hline
+\end{tabular}
+\end{table}
+
+\begin{figure}[htb]
+\centering
+% graphic
+\caption{}
+%\label{}
+\end{figure}

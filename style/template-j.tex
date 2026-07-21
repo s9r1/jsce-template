@@ -1,15 +1,18 @@
+%#!PATH=/opt/texlive/2025/bin/universal-darwin:$PATH; ptex2pdf -l -u -ot '--synctex=1 --shell-escape' -od '-p a4' template-j; skim_reload_pdf template-j
+% v1.4 [2026/03/02]
 \documentclass{jjsce}
 %\documentclass[jscefinal]{jjsce}% 登載可決定後の最終原稿を提出するときはこちら → ページ番号なしになる
-
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage[defaultsups]{newtxtext}
 \usepackage[varg]{newtxmath}
-\usepackage{bm} % 数式でボールドイタリックを使いたいとき
+\usepackage{bm}% 数式でボールドイタリックを使いたいとき
+%%
 %% graphicx 利用の場合は以下のどちらかを選ぶ
 \usepackage[dvipdfmx]{graphicx}% (u)pLaTeX + dvipdfmx の場合
 %\usepackage{graphicx}% LuaLaTeXの場合
-%\usepackage[dvips]{graphicx}
+%\usepackage{stfloats}\fnbelowfloat % LuaLaTeXの場合
+%%
 %\usepackage{xcolor}
 \usepackage[superscript]{cite}
 \usepackage{url}
@@ -19,7 +22,9 @@
 \usepackage[dvipdfmx]{hyperref}% (u)pLaTeX + dvipdfmx の場合
 \usepackage{pxjahyper}% (u)pLaTeX + dvipdfmx の場合はこれを併用する
 %\usepackage[luatex,pdfencoding=auto]{hyperref}% LuaLaTeXの場合
+
 \aboveEtitlesep20mm % 最終ページの英文タイトル部：本文末の並行止めした後のスペース調整．詳細はreadme.pdf参照．
+%\enlargeRcolheight0mm % 最終ページの左右の段の高さがかなり異なるときの調整用．詳細はreadme.pdf参照．
 
 \usepackage{jjsce-macros}
 
@@ -37,10 +42,11 @@
 \Caffiliate[CO]{正会員　土木建設株式会社　技術開発部
 （\jipcode{160--0004}東京都新宿区三矢六丁目13-5）}{hanako@jsce.co.jp }
 
-%\Jbreakauthorline{4}
-%\breakauthorline{4}
-%\received{2022}{1}{31} Received Date を記入
-%\accepted{2022}{4}{28} Accepted Date を記入
+%\Jbreakauthorline{4}% readme.pdf 参照
+%\breakauthorline{4}%  readme.pdf 参照
+%\received{2026}{2}{16}% Received Date を記入
+%\accepted{2026}{3}{2}% Accepted Date を記入 
+
 \begin{abstract}
 要旨の長さは350字以内です．キーワードは5つ程度書いて下さい．
 \end{abstract}
@@ -56,13 +62,13 @@ times, italic, 10pt, one blank line below abstract, indent if key words exceed o
 
 jjsce.cls の詳しい使い方については，同梱の readme.pdf を参照してください．
 
-
-
 \section{見出し（見出しが1行以上に長くなるときはこの例のようにインデントし折り返されます）}
+
 見出しのレベルは章，節，項の3段階までとします．
 項より下位の見出しは用いないで下さい．
 
 \section{数式および数学記号}
+
 数式や数学記号は次の式
 \begin{align}
 G&=\sum_{n=0}^\infty b_n(t)\\
@@ -71,14 +77,16 @@ F&=\int_{\Gamma}\sin z \mathrm{d}z
 のように本文と独立している場合でも，
 $C_D, \alpha(z)$のように文章の中に出てくる場合でも同じ数式用のフォントを用いて作成します．
 数式や数学記号の品質が悪いと版下原稿として受け付けません．
+
 \section{図表}
 \subsection{図表の位置}
+
 図表はそれらを最初に引用する文章と同じページに置くことを原則とします．原稿末尾にまとめたりしてはいけません．また，図表の横幅は，「2段ぶち抜き」あるいはこのサンプルの表-1や図-2のように「1段の幅いっぱい」のいずれかとします．図表の幅を1段幅以下にして図表の横に本文テキストを配置することはやめて下さい．図表と文章本体との間には1～2行程度の空白を空けて区別を明確にします．
 
 \subsection{図表中の文字およびキャプション}
+
 図表中の文字や数式の大きさが小さくなり過ぎないように注意してください．特にキャプションの大きさ(9pt)より小さくならないようにして下さい．
 長いキャプションは\tabref{tab:sample}のようにインデントして折り返します．
-
 
 \begin{table}[htb]
 \caption{表のキャプションは表の上に置く．インデントが長いときは自動的に折り返される．}
@@ -98,7 +106,6 @@ $C_D, \alpha(z)$のように文章の中に出てくる場合でも同じ数式�
 ``\verb|\tabref{}|''
 が使えます．
 
-
 \begin{figure}[htb]
 \centering
 \rule{20mm}{20mm}
@@ -106,7 +113,6 @@ $C_D, \alpha(z)$のように文章の中に出てくる場合でも同じ数式�
 \caption{図のキャプションは図の下に置く}
 \label{fig:sample}
 \end{figure}
-
 
 \section{参考文献の引用とリスト}
 

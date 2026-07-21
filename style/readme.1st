@@ -1,0 +1,54 @@
+/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+             土木学会論文集 (u)pLaTeX2e クラスファイル
+/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/
+
+1. jjsce.cls の現在のバージョンは
+      [2026/03/02 v1.4]
+   です．
+
+2. 以下のファイルがあります．
+     jjsce.cls         クラスファイル
+     readme.tex        クラスファイルの使い方
+     readme.pdf        クラスファイルの使い方 (pdf)
+     template-j.tex    和文テンプレート
+     template-e.tex    英文テンプレート
+   コンパイルに必要なファイルは，jjsce.cls だけです．
+   readme.pdf（readme.tex）がこのクラスファイルを使用した場合のサンプルです．
+   論文作成の雛形として template-(je).tex を利用できます．
+   文字コードがUTFであれば，uplatex，LuaTeXで動作します．
+
+3. 本クラスファイルは，以下の環境でテストし，動作確認しました．
+   e-upTeX, Version 3.14159265-p3.8.3-u1.26-191112-2.6 (utf8.uptex)
+    (TeX Live 2020)
+   e-upTeX, Version 3.141592653-p3.9.0-u1.27-210218-2.6 (utf8.uptex)
+    (TeX Live 2021)
+   e-upTeX, Version 3.141592653-p4.1.1-u1.30-230214-2.6 (utf8.uptex)
+    (TeX Live 2024)
+   e-upTeX, Version 3.141592653-p4.1.2-u2.00-250202-2.6 (utf8.uptex)
+    (TeX Live 2025)
+   LuaHBTeX, Version 1.12.0 (TeX Live 2020)
+   LuaHBTeX, Version 1.13.2 (TeX Live 2021)
+   LuaHBTeX, Version 1.18.0 (TeX Live 2024)
+   LuaHBTeX, Version 1.22.0 (TeX Live 2025)
+     LuaTeXについて：
+     パッケージなどを追加で読み込むことなく，LuaLaTeX でも動作します．
+     readme.tex または template-(je).tex のまま（UTF）で動作確認しました．
+     しかし，LuaTeX は今後も仕様が変更になることが予想されます．
+     upLaTeX での使用をお勧めします．
+
+4. jjsce.clsの著作権は土木学会が有します．
+   このクラスファイルを土木学会論文集の原稿作成以外の目的で使用することを
+   禁止します．また，無断での複製、改変、転載、再配布及び転送等の行為を
+   禁止します．
+   使い方に関するお問い合わせは応用力学委員会編集小委員会
+   LaTeX WG（jjsce-latex@jsce.or.jp）にお願いします．
+   TeX や LaTeX の一般的な質問にはお答えいたしかねます．
+   TeX Wiki か書籍などを参照してください．
+   LaTeXのクラスファイル作成に関するお問い合わせは
+   （株）ウルス（teppei@uls.co.jp）にお願いします．
+
+                                                          2026年 3月 2日
+                                                     (株)ウルス 佐藤基昭
+                         E-mail: teppei@uls.co.jp, http://www.uls.co.jp/
+                                    〒113-0022 東京都文京区千駄木3-21-15
+                                   TEL: 03-5842-1290 / FAX: 03-5842-1295

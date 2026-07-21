@@ -1,10 +1,7 @@
-%%%
-%% v1.0-RC01 [2022/01/31]
-%% v1.0-RC02 [2022/02/22]
-%% v1.1 [2022/10/17]
+%% v1.4 [2026/03/02]
 \documentclass{jjsce}% jscefinal
-%\documentclass[Proof,noflushend]{jjsce}% !!noflushend
-%\documentclass[Proof,english]{jjsce}% 
+%\documentclass[noflushend]{jjsce}% Proof
+%\documentclass[english]{jjsce}% Proof
 \usepackage{amsmath}
 %\usepackage{amsthm}% newtxtext よりも前に読み込む
 \usepackage[defaultsups]{newtxtext}
@@ -16,14 +13,15 @@
 \usepackage[superscript]{cite}
 \usepackage{url}
 \usepackage{endnotes}
-%\usepackage{flushend}
-%\usepackage{balance}% --> 古すぎる output routine が適合しない
-\usepackage[savepos]{zref}% cls 内で Require すると正しい数値を得られない
+%%\usepackage{flushend}
+%%\usepackage{balance}% --> 古すぎる output routine が適合しない
+\usepackage[savepos]{zref}
 %\usepackage[uplatex]{otf}
 
 \def\ClassFile{\texttt{jjsce.cls}}
 
-\aboveEtitlesep5mm
+%\aboveEtitlesep0mm
+%\enlargeRcolheight50mm
 
 \begin{document}
 \jtitle{土木学会論文集のための\\
@@ -54,8 +52,8 @@
 \fi
 %\Jbreakauthorline{4}
 %\breakauthorline{4}
-\received{2022}{1}{31}
-\accepted{2022}{4}{28}
+\received{2026}{2}{16}
+\accepted{2026}{3}{2}
 
 \begin{abstract}
 「土木学会論文集」への投稿原稿を，
@@ -68,10 +66,9 @@
 \if@english\else
 \makeatother
 \begin{Eabstract}
-The Japan Society of Civil Engineers 
-provides a (u)p\LaTeXe\ class file, named \ClassFile, 
-for the Journal of Japan Society of Civil Engineers. 
-This document describes how to use the class file. 
+The Japan Society of Civil Engineers (JSCE) provides 
+a (u)p\LaTeXe\ class file, named \ClassFile, for its journal. 
+This document describes the usage of the class file.
 \end{Eabstract}
 \fi
 \begin{keyword}
@@ -123,7 +120,7 @@ class file, p\LaTeXe, up\LaTeXe, times, 10pt
 定理型環境を記述する \texttt{amsthm} パッケージは必須ではありません．
 利用するときは
 \texttt{newtxtext} パッケージよりも前に読み込む必要があります
-（後ろで読み込むと，そのままではエラーが生じます）．
+（後ろで読み込むとエラーが生じます）．
 \item 
 「論文集」では欧文フォントに
 \texttt{newtxtext}（Times 系）を使用します．
@@ -160,7 +157,7 @@ class file, p\LaTeXe, up\LaTeXe, times, 10pt
 \texttt{zref} パッケージは必須です．
 最終ページの英文タイトル・英文著者名・要旨
 （以下，英文タイトル部と略します）を
-表示するために利用します（\ref{sec:zref}節，\pageref{sec:zref}頁参照）．
+表示するために利用します（\ref{sec:flushend}節，\pageref{sec:flushend}頁参照）．
 \end{itemize}
 
 \subsection{本文の記述}
@@ -184,8 +181,8 @@ class file, p\LaTeXe, up\LaTeXe, times, 10pt
 （\jipcode{160--0004}住所）}{メールアドレス}
 %\Jbreakauthorline{4}
 %\breakauthorline{4}
-\received{2022}{1}{31}
-\accepted{2022}{4}{28}
+\received{2026}{2}{16}
+\accepted{2026}{3}{2}
 \begin{abstract}
 和文要旨
 \end{abstract}
@@ -221,7 +218,7 @@ class file, p\LaTeXe, up\LaTeXe, times, 10pt
 任意の場所で改行したいときは，\verb/\\/  か \verb/\break/ を使ってください．
 必要に応じて，副題を \verb/\esubtitle/ コマンドに記述できます．
 このコマンドは，最終ページの英文タイトル部の表示に使われます
-（\ref{sec:zref}節，\pageref{sec:zref}頁参照）．
+（\ref{sec:flushend}節，\pageref{sec:flushend}頁参照）．
 \item 
 著者名は，以下のように記述します．
 \begin{verbatim*}
@@ -303,7 +300,7 @@ REFERENCES の下に出力するためのコマンドです．
 \item
 \texttt{Eabstract} 環境には，英文要旨を記述します．
 これは，最終ページの英文タイトル部の表示に使われます
-（\ref{sec:zref}節，\pageref{sec:zref}頁参照）．
+（\ref{sec:flushend}節，\pageref{sec:flushend}頁参照）．
 「The length should be 300 words or less.」と指定されています．
 
 \item
@@ -315,7 +312,7 @@ REFERENCES の下に出力するためのコマンドです．
 \item 
 付録を記述する場合は，まず \verb/\appendix/ を宣言し，
 \verb/\section/ などの見出しを記述します．
-章が一つの場合は，\verb/\section*/ とすることもできます．
+節が一つの場合は，\verb/\section*/ とすることもできます．
 \item 
 REFERENCES（参考文献）については
 \ref{sec:refs}節（\pageref{sec:refs}頁）を参照してください．
@@ -348,8 +345,8 @@ REFERENCES（参考文献）については
 \affiliate[jsce]{membership, 
  affiliation (address)}{email address}
 %\breakauthorline{4}
-\received{2022}{1}{31}
-\accepted{2022}{4}{28}
+\received{2026}{2}{16}
+\accepted{2026}{3}{2}
 \begin{abstract}
 英文要旨
 \end{abstract}
@@ -431,7 +428,7 @@ NOTES を消すためには，\verb/\usepackage{endnotes}/ をコメントアウ
 \end{figure}
 \end{verbatim}
 
-\begin{figure}[htb]
+\begin{figure}[tb]
 \centering
 \textcolor{black!20}{\rule{50mm}{30mm}}
 \caption{和文キャプションの例}
@@ -471,56 +468,78 @@ NOTES を消すためには，\verb/\usepackage{endnotes}/ をコメントアウ
 適宜 \verb/\newpage/ を使ってください．
 
 \subsection{最終ページの英文タイトル部について}
-\label{sec:zref}
+\label{sec:flushend}
 
-英文タイトル・著者名・英文要旨は，最終ページで本文を並行止めした後に
-（左段と右段を揃える），その下部に出力されます．
-このため，当クラスファイルは \texttt{zref} パッケージと
-\texttt{flushend} パッケージ（クラスファイル内部で読み込む）を
-利用しています．
+和文投稿原稿の場合，英文タイトル・著者名・英文要旨
+（以下，「英文タイトル部」と略します）は，
+最終ページで本文を並行止め（左段と右段を揃える）した後に，
+英文タイトル部を出力するスペースがある場合はその下部に出力され，
+スペースがない場合は次のページに出力されます
+（\texttt{zref} および \texttt{flushend} パッケージを利用しており，
+後者はクラスファイル内部で読み込みます）．
 
-\texttt{flushend} パッケージは可能な限り，
-左段と右段を揃えようとしますが，必ずしもきれいに揃うとは限りません
-（見出しや図表がある場合）．
-左段が右段よりかなり長い場合，
+\texttt{flushend} パッケージは左段と右段を揃えようとしますが，
+最終ページに図表や見出しが多い場合に左段が右段よりかなり高くなる
+体裁になったり，最終ページが数行程度の場合に左右段が並行にならないといった
+現象が生じることがあります（バグと限界により多くの場合は解決が困難です）．
+
+このような場合の解決方法として以下の4つを試してください．
+\begin{itemize}
+\item
+左段の任意の箇所で \verb/\newpage/ を記述して改段を試みる．
+ただし，\verb/\newpage/ で改段できない（つまり記述しても無効）ことがあります
+（これは \texttt{flushend} パッケージの仕様です）．
+
+\item
+英文タイトル部を出力するスペースがページ下部にある場合，
+または英文タイトル部が本文と重なったり接近しすぎるようなとき，
 \begin{verbatim}
 \aboveEtitlesep10mm
 \end{verbatim}
-などとして，英文タイトル部分を下げることができます．
+と記述すると（\texttt{10mm}は仮），英文タイトル部が下がります．
 
-しかし，図表が最終ページに集中したり，
-最終ページに2，3行本文がはみ出すようなケースなどでは
-二段組の左右の高さを自動的に揃えることは，
-\LaTeX\ には極めて難しいことで，
-\texttt{flushend} パッケージを使っても，うまくいかないことがあります．
-また，まれにですが右段の途中に不用意な縦方向の空きが生じることもあります．
+\item
+英文タイトル部を出力するスペースがページ下部にない場合，
+左段と右段の高低差分（例えば\texttt{40mm}であれば）を
+\begin{verbatim}
+\enlargeRcolheight40mm
+\end{verbatim}
+などと記述してください．これは右段に架空のスペースを加えることを意味します．
 
-このような不具合が生じる場合は，以下のような方法で
-手動で制御する必要があります．
+\item
+\ref{sec:note}節で説明するいくつかの方法で，
+ページ全体の容量を減らすなどの対策をとる．
+\end{itemize}
 
+しかし，上のような方法でも解決できない場合は，
+以下のような方法があります（標準の \verb/\twocolumn/ の挙動に戻します）．
 \begin{itemize}
 \item
-ドキュメントクラスのオプションに \texttt{noflushend} を指定します．
+まず，ドキュメントクラスのオプションに \texttt{noflushend} を指定します．
 \begin{verbatim}
 \documentclass[noflushend]{jjsce}
 \end{verbatim}
 
-%%\texttt{nidanfloat}??
-
 \item
+英文タイトル部がページ下部に収まる場合，
 最終ページのテキストの左段の部分で，
-以下のようにして英文タイトル部分を出力します．
-必要に応じて，\verb/\makeEtitle/ の上下を \verb/\vspace/ や
-\verb/\aboveEtitlesep/ を使って調節します．
+以下のようにして英文タイトル部を出力します．
+必要に応じて，\verb/\makeEtitle/ の上下を \verb/\vspace/ を使って調節します．
 \begin{verbatim}
 \begin{figure}[b]
-%\aboveEtitlesep-15mm
+\vspace{-10mm}
 \makeEtitle
-%\vspace{90mm}
+%\vspace{10mm}
 \end{figure}
 \end{verbatim}
 
-%\end{itemize}
+\item
+英文タイトル部を次ページに送る場合は，テキストの最後に，
+\begin{verbatim}
+\onecolumn
+\makeEtitle
+\end{verbatim}
+とします．
 \end{itemize}
 
 \subsection{最終原稿でページ番号を削除する}
@@ -569,6 +588,7 @@ https://texwiki.texjp.org/?hyperref#v71488f4
 \end{itemize}
 
 \section{テクニカルノート}
+\label{sec:note}
 
 投稿料との関係でページ数を縮めたいというケースが出てくると思われます．
 以下5つの方法が簡単です．
@@ -681,15 +701,15 @@ https://texwiki.texjp.org/?hyperref#v71488f4
 \verb/\section/ の直前で \verb/\vspace{-1\Cvs}/ などとする．
 \end{enumerate}
 
-\makeatletter
-\if@noflushend
-\makeatother
-\begin{figure}[b]
-\aboveEtitlesep-15mm
-\makeEtitle
-\vspace{90mm}
-\end{figure}
-\fi
+%\makeatletter
+%\if@noflushend
+%\makeatother
+%\begin{figure}[b]
+%\aboveEtitlesep-15mm
+%\makeEtitle
+%\vspace{90mm}
+%\end{figure}
+%\fi
 
 \section{クラスファイルから削除したコマンド}
 %\label{sec:app}
@@ -704,8 +724,8 @@ https://texwiki.texjp.org/?hyperref#v71488f4
 \begin{thebibliography}{9}% 文献が10以上のとき99，10未満のとき9
 \bibitem{Okumura}
 奥村晴彦，黒木裕介：
-［改訂第8版］\LaTeXe{} 美文書作成入門，
-技術評論社，2020．
+［改訂第9版］\LaTeX\ 美文書作成入門，
+技術評論社，2023．
 
 \bibitem{Knuth}
 D.E.クヌース：
